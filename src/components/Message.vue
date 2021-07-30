@@ -1,5 +1,7 @@
 <template>
-  <h1> {{ message }} </h1>
+<div class="message">
+  <p> {{ message }} </p>
+</div>
 </template>
 
 <script>
@@ -12,3 +14,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.message {
+  text-align: center;
+  padding-top: 20px;
+}
+p {
+  color: red
+}
+</style>
