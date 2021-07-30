@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+  <title>Notes</title>
+</head>
+<body>
+  <div id="app">
+    <h1>{{title}}</h1>
+    <!-- new note-->
+    <div class="new-note">
+      <input v-model='note.title' type="text">
+      <textarea v-model='note.descr'></textarea>
+      <button @click='addNote'>New note</button>
+    </div>
+
+    <!-- note list -->
+    <div class="notes">
+      <div class="note" v-for='(note, index) in notes' :key='index'>
+        <div class="note-header">
+          <p>{{ note.title }}</p>
+        </div>
+        <div class="note-descr">
+          <p>{{ note.descr }}</p>
+        </div>
+        <div class="note-date">
+          <p>{{ note.date }} </p>
+        </div>
+  </div>
+
+  <script>
+    var app = new Vue ({
+      el: '#app',
+      data: {
+        title: 'Notes App',
+        notes: [
+          {
+            title: 'First note',
+            descr: 'Descriptoon for first note',
+            date: new Date(Date.now()).toLocaleString()
+          },
+          {
+            title: 'Second note',
+            descr: 'Descriptoon for second note',
+            date: new Date(Date.now()).toLocaleString()
+          },
+          {
+            title: 'Third note',
+            descr: 'Descriptoon for third note',
+            date: new Date(Date.now()).toLocaleString()
+          }
+        ],
+        note: {
+          title: '',
+          descr: ''
+        }
+      },
+      methods: {
+        addNote () {
+          let {title, descr} = this.note
+          if (this.note.title === '') return false
+          
+          this.notes.push({
+            title,
+            descr,
+            date: new Date(Date.now()).toLocaleString()
+          })
+         this.note.title = ''
+          this.note.descr = ''
+        }
+        
+      }
+    })
+  </script>
+</body>
+</html>
