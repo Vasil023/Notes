@@ -13,6 +13,11 @@ export default {
       type: Object,
       required: true
     }
+  },
+  methods: {
+     addNote () {
+      this.$emit('addNote', this.note)
+    }
   }
 }
 </script>

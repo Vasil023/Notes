@@ -7,7 +7,9 @@
 
         <message v-if="message" :message="message" />
 
-        <newNote :note="note" />
+        <newNote 
+        :note="note"
+        @addNote="addNote" />
 
         <div class="notes">
           <div class="note" v-for="(note, index) in notes" :key="index">
