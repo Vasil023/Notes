@@ -6,12 +6,9 @@
          <h1> {{ title }} </h1>
 
         <message v-if="message" :message="message" />
-         
-         <div class="new-note">
-           <input v-model="note.title" type="text">
-           <textarea v-model="note.descr" ></textarea>
-           <button @click="addNote">New note</button>
-         </div>
+
+        <newNote :note="note" />
+
         <div class="notes">
           <div class="note" v-for="(note, index) in notes" :key="index">
             <div class="note-header">
@@ -31,9 +28,10 @@
 
 <script>
 import message from '@/components/Message.vue'
+import newNote from '@/components/NewNote.vue'
 export default {
   components: {
-    message
+    message, newNote
   },
   data () {
     return {
