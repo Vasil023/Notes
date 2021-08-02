@@ -29,6 +29,6 @@ export default {
   text-align: center;
 }
 .btn {
-  margin-top: 20px;
+  margin: 20px 0 20px;
 }
 </style>
