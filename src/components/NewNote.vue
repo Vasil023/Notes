@@ -28,4 +28,7 @@ export default {
 .new-note {
   text-align: center;
 }
+.btn {
+  margin-top: 20px;
+}
 </style>

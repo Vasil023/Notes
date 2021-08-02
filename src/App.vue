@@ -4,17 +4,17 @@
      <section>
        <div class="container">
          <h1> {{ title }} </h1>
-
+        <!-- Message -->
         <message v-if="message" :message="message" />
-
+        <!-- New note -->
         <newNote 
         :note="note"
         @addNote="addNote" />
-
+        <!-- Notes -->
         <notes 
-        :notes="notes"/>
+        :notes="notes"
+        @remove="removeNote"/>
 
-       
        </div>
      </section>
    </div>
@@ -44,7 +44,7 @@ export default {
           date: new Date(Date.now()).toLocaleString()
         },
         {
-          title: 'First note',
+          title: 'Seconds note',
           descr: 'Description for first note',
           date: new Date(Date.now()).toLocaleString()
         } 
@@ -69,6 +69,9 @@ export default {
       this.message = null
       this.note.title = ''
       this.note.descr = ''
+    },
+    removeNote (index) {
+       this.notes.splice(index, 1)
     }
   }
 }
