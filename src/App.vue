@@ -12,8 +12,10 @@
  
         <div class="note-header">
           <h1> {{ title }} </h1>
-
-          <search  :value="search" placeholder="Find your note"/>
+          <search  
+          :value="search" 
+          placeholder="Find your note"
+          @search="search = $event"/>
 
           <div class="icons">
             <svg :class="{ active: grid }" @click="grid = true" style="cursor: pointer"  xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" ><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
@@ -22,7 +24,7 @@
         </div>
          <!-- Notes -->
         <notes 
-        :notes="notes"
+        :notes="notesFilter"
         @remove="removeNote"
         :grid="grid"/>
 
@@ -64,6 +66,22 @@ export default {
         } 
       ]
 
+    }
+  },
+  computed: {
+    notesFilter () {
+      let array = this.notes,
+          search = this.search
+      if (!search) return array
+      // Small
+      search = search.trim().toLowerCase()
+      // Filter
+      array = array.filter(function (item) {
+        if (item.title.toLowerCase().indexOf(search) !== -1) {
+          return item
+        }
+      })
+      return array
     }
   },
   methods: {
