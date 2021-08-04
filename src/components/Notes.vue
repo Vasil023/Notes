@@ -1,20 +1,36 @@
 <template>
    <div class="notes">
     <div class="note" :class="{ full: !grid }" v-for="(note, index) in notes" :key="index">
-      <div class="note-header">
+      <div class="note-header" @click="update">
         <p>{{ note.title }}</p>
         <p style="cursor: pointer;" @click="removeNote(index)">x</p>
+        <!-- <button ">update</button>? -->
       </div> 
       <div class="note-body">
         <p>{{ note.descr }}</p>
         <span>{{ note.date }}</span>
       </div>
     </div>
+     <div class="note-update" v-if="this.flag">
+       <form @submit="updateNotes">
+        <div class="note-form">
+          <input type="text" v-model="updateTitle" placeholder="" >
+          <button>Update</button>
+        </div>
+       </form>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
+  data () {
+    return {
+      flag: false,
+      updateTitle: ''
+    }
+    
+  },
   props: {
     notes: {
       type: Array,
@@ -28,6 +44,17 @@ export default {
   methods: {
     removeNote (index) {
       this.$emit('remove', index)
+    },
+    update () {
+      this.flag = !this.flag
+      console.log();
+    },
+    updateNotes (e) {
+      e.preventDefault()
+
+      this.notes.filter((item) => {
+        console.log(item.index);
+      })
     }
   }
 }

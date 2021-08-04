@@ -110,5 +110,7 @@ export default {
 </script>
 
 <style>
-
+  .wrapper {
+    width: 70%;
+  }
 </style>
