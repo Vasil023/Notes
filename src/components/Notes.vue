@@ -3,8 +3,10 @@
     <div class="note" :class="{ full: !grid }" v-for="(note, index) in notes" :key="index">
       <div class="note-header">
         <p>{{ note.title }}</p>
-        <p style="cursor: pointer;" @click="removeNote(index)">x</p>
-        <button @click="update">update</button>
+        <div class="icon">
+          <a @click="update"> <img src="../assets/pencil (2).png" alt=""> </a>
+          <p style="cursor: pointer;" @click="removeNote(index)">x</p>
+        </div>
       </div> 
       <div class="note-body">
         <p>{{ note.descr }}</p>
@@ -13,7 +15,7 @@
       <div class="note-update" v-if="flag">
         <div class="note-form">
           <input type="text" v-model="updateTitle" placeholder="" >
-          <button @click="updateNotes(index)">Update</button>
+          <button class="btn btnPrimary update"  @click="updateNotes(index)">Update</button>
         </div>
       </div>
     </div>
@@ -96,6 +98,12 @@ svg {
     margin-right: 0;
   }
 }
+.icon {
+  display: flex;
+  justify-content: space-between;
+  width: 40px;
+  align-items: center;
+}
 .note-body {
   span {
     font-size: 14px;
@@ -107,6 +115,9 @@ svg {
     font-size: 17px;
     margin: 10px 0 10px;
   }
+}
+.update {
+  
 }
   
 </style>
