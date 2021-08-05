@@ -55,11 +55,13 @@ export default {
       },
       notes: [
         {
+          id: Math.random(),
           title: 'First note',
           descr: 'Description for first note',
           date: new Date(Date.now()).toLocaleString()
         },
         {
+          id: Math.random(),
           title: 'Seconds note',
           descr: 'Description for first note',
           date: new Date(Date.now()).toLocaleString()
@@ -94,6 +96,7 @@ export default {
       }
 
       this.notes.push({
+        id: Math.random(),
         title,
         descr,
         date: new Date(Date.now()).toLocaleString()

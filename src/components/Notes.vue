@@ -1,23 +1,21 @@
 <template>
-   <div class="notes">
+  <div class="notes">
     <div class="note" :class="{ full: !grid }" v-for="(note, index) in notes" :key="index">
-      <div class="note-header" @click="update">
+      <div class="note-header">
         <p>{{ note.title }}</p>
         <p style="cursor: pointer;" @click="removeNote(index)">x</p>
-        <!-- <button ">update</button>? -->
+        <button @click="update">update</button>
       </div> 
       <div class="note-body">
         <p>{{ note.descr }}</p>
         <span>{{ note.date }}</span>
       </div>
-    </div>
-     <div class="note-update" v-if="this.flag">
-       <form @submit="updateNotes">
+      <div class="note-update" v-if="flag">
         <div class="note-form">
           <input type="text" v-model="updateTitle" placeholder="" >
-          <button>Update</button>
+          <button @click="updateNotes(index)">Update</button>
         </div>
-       </form>
+      </div>
     </div>
   </div>
 </template>
@@ -47,14 +45,15 @@ export default {
     },
     update () {
       this.flag = !this.flag
-      console.log();
     },
-    updateNotes (e) {
-      e.preventDefault()
-
+    updateNotes (index) {
       this.notes.filter((item) => {
-        console.log(item.index);
+        if (item.id == this.notes[index].id) {
+          item.title = this.updateTitle
+        }
       })
+    this.flag = false
+    this.updateTitle = ''
     }
   }
 }
