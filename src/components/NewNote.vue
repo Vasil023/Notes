@@ -14,7 +14,11 @@ export default {
     note: {
       type: Object,
       required: true
-    }
+    },
+    // important: {
+    //   type: Boolean,
+    //   required: true
+    // }
   },
   methods: {
      addNote () {

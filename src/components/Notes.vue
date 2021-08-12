@@ -1,18 +1,19 @@
 <template>
   <div class="notes">
-    <div class="note" :class="{ full: !grid }" v-for="(note, index) in notes" :key="index">
+    <div class="note" :class="{ full: !grid, important: important }" v-for="(note, index) in notes" :key="index">
       <div class="note-header">
         <p>{{ note.title }}</p>
         <div class="icon">
-          <a @click="update"> <img src="../assets/pencil (2).png" alt=""> </a>
+          <a @click="update(index)"> <img src="../assets/pencil (2).png" alt=""> </a>
           <p style="cursor: pointer;" @click="removeNote(index)">x</p>
+          <p style="cursor: pointer" @click="important = !important">o</p>
         </div>
       </div> 
       <div class="note-body">
         <p>{{ note.descr }}</p>
         <span>{{ note.date }}</span>
       </div>
-      <div class="note-update" v-if="flag">
+      <div class="note-update" v-if="flag" >
         <div class="note-form">
           <input type="text" v-model="updateTitle" placeholder="" >
           <button class="btn btnPrimary update"  @click="updateNotes(index)">Update</button>
@@ -26,7 +27,8 @@
 export default {
   data () {
     return {
-      flag: false,
+      // flag: false,
+      important: false,
       updateTitle: ''
     }
     
@@ -39,16 +41,26 @@ export default {
     grid: {
       type: Boolean ,
       required: true 
+    },
+    flag: {
+      type: Boolean ,
+      required: true 
     }
   },
   methods: {
     removeNote (index) {
       this.$emit('remove', index)
     },
-    update () {
-      this.flag = !this.flag
+    update (index) {
+      this.$emit('update', index)
+      // this.notes.filter((item) => {
+      //   if (item.id === this.notes[index].id) {
+      //       this.flag = !this.flag
+      //   }
+      // })
     },
     updateNotes (index) {
+      console.log(index);
       this.notes.filter((item) => {
         if (item.id == this.notes[index].id) {
           item.title = this.updateTitle
@@ -116,8 +128,7 @@ svg {
     margin: 10px 0 10px;
   }
 }
-.update {
-  
-}
-  
+.important {
+  border-bottom: 2px solid red;
+}  
 </style>

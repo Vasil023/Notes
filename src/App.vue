@@ -8,6 +8,7 @@
         <!-- New note -->
         <newNote 
         :note="note"
+        
         @addNote="addNote" />
  
         <div class="note-header">
@@ -26,7 +27,9 @@
         <notes 
         :notes="notesFilter"
         @remove="removeNote"
-        :grid="grid"/>
+        @update="update"
+        :grid="grid"
+        :flag="flag"/>
 
        </div>
      </section>
@@ -49,9 +52,11 @@ export default {
       message: null,
       search: '',
       grid: true,
+      flag: false,
+      // important: false,
       note: {
         title: '',
-        descr: ''
+        descr: '',
       },
       notes: [
         {
@@ -107,6 +112,16 @@ export default {
     },
     removeNote (index) {
        this.notes.splice(index, 1)
+    },
+    update (index) {
+      // console.log(this.notes[index].id, );
+      this.notes.filter((item) => {
+      
+        if (this.notes[index].id === item.id) {
+            this.flag = !this.flag
+              console.log(this.notes[index].id);
+        }
+      })
     }
   }
 }
