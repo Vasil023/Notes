@@ -1,25 +1,25 @@
 <template>
   <div class="notes">
-    <div class="note" :class="{ full: !grid, important: important }" v-for="(note, index) in notes" :key="index">
+    <div class="note" :class="{ full: !grid }" v-for="(note, index) in task">
       <div class="note-header">
         <p>{{ note.title }}</p>
         <div class="icon">
           <a @click="update(index)"> <img src="../assets/pencil (2).png" alt=""> </a>
           <p style="cursor: pointer;" @click="removeNote(index)">x</p>
-          <p style="cursor: pointer" @click="important = !important">o</p>
         </div>
       </div> 
       <div class="note-body">
         <p>{{ note.descr }}</p>
         <span>{{ note.date }}</span>
       </div>
-      <div class="note-update" v-if="flag" >
+      <div class="note-update" v-show="flag" >
         <div class="note-form">
           <input type="text" v-model="updateTitle" placeholder="" >
           <button class="btn btnPrimary update"  @click="updateNotes(index)">Update</button>
         </div>
       </div>
     </div>
+
   </div>
 </template>
 
@@ -28,23 +28,22 @@ export default {
   data () {
     return {
       // flag: false,
-      important: false,
-      updateTitle: ''
+      updateTitle: '',
+      // notes: null
     }
-    
   },
   props: {
-    notes: {
-      type: Array,
-      required: true
-    },
     grid: {
       type: Boolean ,
-      required: true 
+      required: true
     },
     flag: {
-      type: Boolean ,
-      required: true 
+      type: Boolean,
+      required: true
+    },
+    task: {
+      type: Array,
+      required: true
     }
   },
   methods: {
@@ -53,16 +52,10 @@ export default {
     },
     update (index) {
       this.$emit('update', index)
-      // this.notes.filter((item) => {
-      //   if (item.id === this.notes[index].id) {
-      //       this.flag = !this.flag
-      //   }
-      // })
     },
     updateNotes (index) {
-      console.log(index);
-      this.notes.filter((item) => {
-        if (item.id == this.notes[index].id) {
+      this.task.filter((item) => {
+        if (item.id == this.task[index].id) {
           item.title = this.updateTitle
         }
       })

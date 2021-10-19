@@ -24,13 +24,13 @@
           </div>
         </div>
          <!-- Notes -->
-        <notes 
+        <notes
+        :task="notes"
         :notes="notesFilter"
         @remove="removeNote"
         @update="update"
         :grid="grid"
         :flag="flag"/>
-
        </div>
      </section>
    </div>
@@ -53,26 +53,12 @@ export default {
       search: '',
       grid: true,
       flag: false,
+      notes: null,
       // important: false,
       note: {
         title: '',
         descr: '',
       },
-      notes: [
-        {
-          id: Math.random(),
-          title: 'First note',
-          descr: 'Description for first note',
-          date: new Date(Date.now()).toLocaleString()
-        },
-        {
-          id: Math.random(),
-          title: 'Seconds note',
-          descr: 'Description for first note',
-          date: new Date(Date.now()).toLocaleString()
-        } 
-      ]
-
     }
   },
   computed: {
@@ -91,6 +77,9 @@ export default {
       return array
     }
   },
+  created() {
+    this.notes = this.$store.getters.getNote
+  },
   methods: {
     addNote () {
       let {title, descr} = this.note
@@ -100,12 +89,8 @@ export default {
         return false
       }
 
-      this.notes.push({
-        id: Math.random(),
-        title,
-        descr,
-        date: new Date(Date.now()).toLocaleString()
-      })
+      this.$store.dispatch('setMessage', {title: this.note.title, descr: this.note.descr, date: new Date().toLocaleString(), id: Math.random()})
+
       this.message = null
       this.note.title = ''
       this.note.descr = ''
@@ -114,12 +99,10 @@ export default {
        this.notes.splice(index, 1)
     },
     update (index) {
-      // console.log(this.notes[index].id, );
       this.notes.filter((item) => {
-      
+        console.log(item.id)
         if (this.notes[index].id === item.id) {
             this.flag = !this.flag
-              console.log(this.notes[index].id);
         }
       })
     }
