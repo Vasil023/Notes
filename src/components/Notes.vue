@@ -1,6 +1,6 @@
 <template>
   <div class="notes">
-    <div class="note" :class="{ full: !grid }" v-for="(note, index) in task">
+    <div class="note" :class="{ full: !grid }" v-for="(note, index) in notes">
       <div class="note-header">
         <p>{{ note.title }}</p>
         <div class="icon">
@@ -41,7 +41,7 @@ export default {
       type: Boolean,
       required: true
     },
-    task: {
+    notes: {
       type: Array,
       required: true
     }
@@ -54,8 +54,8 @@ export default {
       this.$emit('update', index)
     },
     updateNotes (index) {
-      this.task.filter((item) => {
-        if (item.id == this.task[index].id) {
+      this.notes.filter((item) => {
+        if (item.id == this.notes[index].id) {
           item.title = this.updateTitle
         }
       })

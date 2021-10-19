@@ -13,8 +13,8 @@
  
         <div class="note-header">
           <h1> {{ title }} </h1>
-          <search  
-          :value="search" 
+          <search
+          :value="search"
           placeholder="Find your note"
           @search="search = $event"/>
 
@@ -25,7 +25,7 @@
         </div>
          <!-- Notes -->
         <notes
-        :task="notes"
+
         :notes="notesFilter"
         @remove="removeNote"
         @update="update"
@@ -61,6 +61,9 @@ export default {
       },
     }
   },
+  created() {
+    this.notes = this.$store.getters.getNote
+  },
   computed: {
     notesFilter () {
       let array = this.notes,
@@ -77,13 +80,9 @@ export default {
       return array
     }
   },
-  created() {
-    this.notes = this.$store.getters.getNote
-  },
   methods: {
     addNote () {
       let {title, descr} = this.note
-
       if (title === '') {
         this.message = 'title can`t be blank'
         return false
